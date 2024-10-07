@@ -19,8 +19,7 @@ namespace TesteImpressoras
         
         public int selecaoAut;
         public int selecaoCrip;
-
-        
+       
         ConfigSmtp cfSmtp;
         public Form1()
         {
