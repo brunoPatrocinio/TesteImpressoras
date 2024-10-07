@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using SnmpSharpNet;
 using Lextm.SharpSnmpLib.Security;
 using System.Net.NetworkInformation;
+using System.Diagnostics;
 
 
 namespace TesteImpressoras
@@ -23,11 +24,9 @@ namespace TesteImpressoras
         public int totalPag;
         public int totalPagMono;      
 
-        public Impressora(string ip, string modelo, string marca)
+        public Impressora()
         {
-            this.ip = ip;
-            this.modelo = modelo;
-            this.marca = marca;
+           
         }
 
         public string getTonerBK(string oid)
@@ -76,9 +75,7 @@ namespace TesteImpressoras
 
 
         public void getInformationByOidV3(Oid oid, string ip, string user, string authPass, string privPassword, int selecaoAut, int selecaoCrip)
-        { //obs. funcionou com o algoritmo de criptografia na impressora setado em DES ao invés de AES
-          //com o algoritmo de autenticação em SHA1
-          // e config. se segurança ativada AuthPriv depois só passar os parametros cadastrados onde fica o snmp V3 na impressora.
+        { //só passar os parametros cadastrados onde fica o snmp V3 na impressora.
             string result = string.Empty;
             try
             {
@@ -178,8 +175,31 @@ namespace TesteImpressoras
             {
                 MessageBox.Show("Erro! Exceção lançada." + ex, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
             
+        }
+
+        public string pingar(string ip)
+        {
+            Ping envioPing = new Ping();
+            string situacao = string.Empty;
+            try
+            {
+                PingReply reply = envioPing.Send(ip);
+                if(reply.Status == IPStatus.Success)
+                {
+                    situacao = "conectado";                    
+                }
+                else
+                {
+                    situacao = "desconectado";                   
+                }               
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Erro!" + ex);
+                MessageBox.Show("Erro! Exceção lançada.\n" + ex, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return situacao;
         }
     }
 }

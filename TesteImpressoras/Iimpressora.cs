@@ -14,6 +14,6 @@ namespace TesteImpressoras
         void getInformationByOidV3(Oid oid, string ip, string user, string authPass, string privPassword, int selecaoAut, int selecaoCrip);
 
         string getTonerBK(string oid);
-        
+        string pingar(string ip);
     }
 }

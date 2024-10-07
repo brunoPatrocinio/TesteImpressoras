@@ -35,6 +35,7 @@
             this.txtBoxIp = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnEnviarEmail = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -55,10 +56,13 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuArquivo = new System.Windows.Forms.ToolStripMenuItem();
             this.configSMTPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnEnviarEmail = new System.Windows.Forms.Button();
+            this.btnVerificarConexao = new System.Windows.Forms.Button();
+            this.picBoxStatus = new System.Windows.Forms.PictureBox();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxStatus)).BeginInit();
             this.SuspendLayout();
             // 
             // btnGetTotalPag
@@ -73,7 +77,7 @@
             // 
             // btnTotalPagMono
             // 
-            this.btnTotalPagMono.Location = new System.Drawing.Point(792, 54);
+            this.btnTotalPagMono.Location = new System.Drawing.Point(792, 42);
             this.btnTotalPagMono.Name = "btnTotalPagMono";
             this.btnTotalPagMono.Size = new System.Drawing.Size(151, 23);
             this.btnTotalPagMono.TabIndex = 1;
@@ -117,6 +121,9 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel1.Controls.Add(this.lblStatus);
+            this.panel1.Controls.Add(this.picBoxStatus);
+            this.panel1.Controls.Add(this.btnVerificarConexao);
             this.panel1.Controls.Add(this.btnEnviarEmail);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.btnTotalPagMono);
@@ -128,6 +135,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(946, 165);
             this.panel1.TabIndex = 6;
+            // 
+            // btnEnviarEmail
+            // 
+            this.btnEnviarEmail.Location = new System.Drawing.Point(792, 71);
+            this.btnEnviarEmail.Name = "btnEnviarEmail";
+            this.btnEnviarEmail.Size = new System.Drawing.Size(151, 23);
+            this.btnEnviarEmail.TabIndex = 6;
+            this.btnEnviarEmail.Text = "Enviar Email";
+            this.btnEnviarEmail.UseVisualStyleBackColor = true;
+            this.btnEnviarEmail.Click += new System.EventHandler(this.btnEnviarEmail_Click);
             // 
             // label3
             // 
@@ -331,19 +348,39 @@
             // configSMTPToolStripMenuItem
             // 
             this.configSMTPToolStripMenuItem.Name = "configSMTPToolStripMenuItem";
-            this.configSMTPToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.configSMTPToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.configSMTPToolStripMenuItem.Text = "Config SMTP";
             this.configSMTPToolStripMenuItem.Click += new System.EventHandler(this.configSMTPToolStripMenuItem_Click);
             // 
-            // btnEnviarEmail
+            // btnVerificarConexao
             // 
-            this.btnEnviarEmail.Location = new System.Drawing.Point(792, 100);
-            this.btnEnviarEmail.Name = "btnEnviarEmail";
-            this.btnEnviarEmail.Size = new System.Drawing.Size(151, 23);
-            this.btnEnviarEmail.TabIndex = 6;
-            this.btnEnviarEmail.Text = "Enviar Email";
-            this.btnEnviarEmail.UseVisualStyleBackColor = true;
-            this.btnEnviarEmail.Click += new System.EventHandler(this.btnEnviarEmail_Click);
+            this.btnVerificarConexao.Location = new System.Drawing.Point(792, 100);
+            this.btnVerificarConexao.Name = "btnVerificarConexao";
+            this.btnVerificarConexao.Size = new System.Drawing.Size(151, 23);
+            this.btnVerificarConexao.TabIndex = 7;
+            this.btnVerificarConexao.Text = "Verificar Conexão";
+            this.btnVerificarConexao.UseVisualStyleBackColor = true;
+            this.btnVerificarConexao.Click += new System.EventHandler(this.btnVerificarConexao_Click);
+            // 
+            // picBoxStatus
+            // 
+            this.picBoxStatus.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.picBoxStatus.Location = new System.Drawing.Point(522, 4);
+            this.picBoxStatus.Name = "picBoxStatus";
+            this.picBoxStatus.Size = new System.Drawing.Size(255, 50);
+            this.picBoxStatus.TabIndex = 8;
+            this.picBoxStatus.TabStop = false;
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblStatus.Location = new System.Drawing.Point(534, 13);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(231, 32);
+            this.lblStatus.TabIndex = 9;
+            this.lblStatus.Text = "-------------------";
             // 
             // Form1
             // 
@@ -363,6 +400,7 @@
             this.panel2.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxStatus)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -398,6 +436,9 @@
         private System.Windows.Forms.ToolStripMenuItem menuArquivo;
         private System.Windows.Forms.ToolStripMenuItem configSMTPToolStripMenuItem;
         private System.Windows.Forms.Button btnEnviarEmail;
+        private System.Windows.Forms.Button btnVerificarConexao;
+        private System.Windows.Forms.PictureBox picBoxStatus;
+        private System.Windows.Forms.Label lblStatus;
     }
 }
 

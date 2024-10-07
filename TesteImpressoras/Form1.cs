@@ -46,7 +46,7 @@ namespace TesteImpressoras
             {
                 if (txtBoxIp.Text != string.Empty)
                 {
-                    imp1 = new Impressora(txtBoxIp.Text, "G3110", "Canon");
+                    imp1 = new Impressora();
                     Oid oid = new Oid(txtboxOid.Text); //substituir o oid de testes
                     imp1.getInformationByOid(oid, imp1.ip);
                 }
@@ -71,7 +71,7 @@ namespace TesteImpressoras
             {
                 if (txtBoxIp.Text != string.Empty)
                 {
-                    imp1 = new Impressora(txtBoxIp.Text, "G3110", "Canon");
+                    imp1 = new Impressora();
                     
                     Oid oid = new Oid(txtboxOid.Text); //substituir o oid de testes
                     imp1.getInformationByOidV3(oid, imp1.ip, txtBoxUsuarioSnmp.Text, txtBoxSenhaAut.Text, txtBoxSenhaCrip.Text, selecaoAut, selecaoCrip); //passar as info referente a usuario e autenticações Snmp V3
@@ -192,6 +192,25 @@ namespace TesteImpressoras
 
             //smtp.enviarMail(cfSmtp.txtBoxEmailFrom.Text, cfSmtp.txtBoxMailTo.Text, cfSmtp.txtBoxTituloEmail.Text, imp1.getInformationByOid(oid, txtBoxIp.Text),
             //                cfSmtp.txtBoxPorta.Text, cfSmtp.txtBoxSmtpclient.Text, cfSmtp.txtBoxUsuario.Text, cfSmtp.txtBoxSenha.Text, ativ);
+        }
+
+        private void btnVerificarConexao_Click(object sender, EventArgs e)
+        {
+            Impressora imp2 = new Impressora();
+            
+            string retorno = imp2.pingar(txtBoxIp.Text);
+            if(retorno == "conectado")
+            {
+                lblStatus.Text = "CONECTADO";                
+                lblStatus.BackColor = Color.Green;
+                picBoxStatus.BackColor = Color.Green;
+            }
+            else
+            {
+                lblStatus.Text = "NÃO CONECTADO";
+                lblStatus.BackColor = Color.Red;
+                picBoxStatus.BackColor = Color.Red;
+            }
         }
     }
 }

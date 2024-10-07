@@ -10,7 +10,7 @@ namespace TesteImpressoras
     {
         public int totalPagColor;
        
-        public ImpressoraColorida(string ip, string modelo, string marca) : base(ip, modelo, marca)
+        public ImpressoraColorida(string ip, string modelo, string marca) : base()
         {
             
         }
