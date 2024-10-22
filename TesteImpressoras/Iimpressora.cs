@@ -15,5 +15,7 @@ namespace TesteImpressoras
 
         string getTonerBK(string oid);
         string pingar(string ip);
+        List<string> printInfoSpool();
+        InfoTrabImpressao[] printJobsInfo();
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -200,6 +201,45 @@ namespace TesteImpressoras
                 MessageBox.Show("Erro! Exceção lançada.\n" + ex, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return situacao;
+        }
+
+        public List<string> printInfoSpool()
+        {
+            List<string> listaFilas = new List<string>();
+
+            PrintServer printServer = new PrintServer();
+            PrintQueueCollection printQueues = printServer.GetPrintQueues(new[] {EnumeratedPrintQueueTypes.Local, EnumeratedPrintQueueTypes.Connections});
+
+            foreach(PrintQueue pq in printQueues)
+            {
+                listaFilas.Add(pq.ToString());
+            }
+            return listaFilas;
+        }
+
+        public InfoTrabImpressao[] printJobsInfo()
+        {
+            List<InfoTrabImpressao> printJobs = new List<InfoTrabImpressao>();
+
+            PrintServer printServer = new PrintServer();
+            PrintQueueCollection pq = printServer.GetPrintQueues(new[] {EnumeratedPrintQueueTypes.Local, EnumeratedPrintQueueTypes.Connections});
+
+            foreach(PrintQueue ptq in pq)
+            {
+                PrintJobInfoCollection jobs = ptq.GetPrintJobInfoCollection();
+                foreach(PrintSystemJobInfo job in jobs)
+                {
+                    printJobs.Add(new InfoTrabImpressao
+                    {
+                        jobID = job.JobIdentifier,
+                        documentName = job.Name,
+                        submitter = job.Submitter,
+                        status = job.JobStatus.ToString(),
+                        pagesPrinted = job.NumberOfPagesPrinted
+                    });
+                }
+            }
+            return printJobs.ToArray();            
         }
     }
 }
