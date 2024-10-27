@@ -19,11 +19,14 @@ namespace TesteImpressoras
         
         public int selecaoAut;
         public int selecaoCrip;
-       
+        int contadorTotal;
+
         ConfigSmtp cfSmtp;
         public Form1()
         {
             InitializeComponent();
+            printCheckTimer.Tick += printCheckTimer_Tick;
+            printCheckTimer.Start();
             
         }
 
@@ -211,5 +214,36 @@ namespace TesteImpressoras
                 picBoxStatus.BackColor = Color.Red;
             }
         }
+
+        private void btnListarFilasImp_Click(object sender, EventArgs e)
+        {
+            List<string> lstFilas = new List<string>();
+            Impressora impressora = new Impressora();
+            lstFilas = impressora.printInfoSpool();
+            
+            richTextBoxImp.Clear();
+            for(int i = 0; i < lstFilas.Count; i++)
+            {
+                richTextBoxImp.Text += lstFilas[i] + "\n";
+            }
+                       
+        }
+
+        private void printCheckTimer_Tick(object sender, EventArgs e)
+        {           
+            Impressora impressora = new Impressora();
+            List<string> lstFilas = new List<string>();
+            lstFilas = impressora.printInfoSpool();
+            int contador = impressora.checkForNewPrintJobs(lstFilas);
+
+            while (contador != 0)
+            {
+                contadorTotal = contador;
+                break;
+            }
+            Console.WriteLine("Total Pag: " + contadorTotal);
+        }
+
+        
     }
 }

@@ -23,7 +23,8 @@ namespace TesteImpressoras
         public string marca;
         public int qtdTonerBK;
         public int totalPag;
-        public int totalPagMono;      
+        public int totalPagMono;
+        int cont;
 
         public Impressora()
         {
@@ -212,7 +213,8 @@ namespace TesteImpressoras
 
             foreach(PrintQueue pq in printQueues)
             {
-                listaFilas.Add(pq.ToString());
+                //listaFilas.Add(pq.ToString());
+                listaFilas.Add(pq.Name);
             }
             return listaFilas;
         }
@@ -240,6 +242,51 @@ namespace TesteImpressoras
                 }
             }
             return printJobs.ToArray();            
+        }
+
+        public void chacaNovosTrab()
+        {
+            List<string> listaFilas = new List<string>();
+            Dictionary<string, bool> dictImpress = new Dictionary<string, bool>();
+            int qtPag = 0;
+            PrintQueue printQueue;
+            PrintServer printServer = new PrintServer();
+            PrintQueueCollection printQueues = printServer.GetPrintQueues(new[] { EnumeratedPrintQueueTypes.Local, EnumeratedPrintQueueTypes.Connections });
+
+            foreach (PrintQueue pq in printQueues)
+            {
+                PrintJobInfoCollection jobs = pq.GetPrintJobInfoCollection();
+                if(pq.IsPrinting == true)
+                {
+                    foreach(PrintSystemJobInfo job in jobs)
+                    {
+                        qtPag += job.NumberOfPagesPrinted;
+                    }
+                }                
+            }
+                       
+        }
+
+        public int checkForNewPrintJobs(List<string> listaImpressoras) 
+        {           
+            PrintQueue printQueue;
+            LocalPrintServer localPrintServer = new LocalPrintServer();
+            
+            for (int i = 0; i < listaImpressoras.Count; i++)
+            {
+                printQueue = localPrintServer.GetPrintQueue(listaImpressoras[i]);
+                printQueue.Refresh();
+                var printJobs = printQueue.GetPrintJobInfoCollection();
+
+                foreach (PrintSystemJobInfo printJob in printJobs)
+                {
+                    cont += printJob.NumberOfPagesPrinted;
+                    
+                }
+            }
+                                                   
+            Console.WriteLine("Contador: " +  cont);
+            return cont;
         }
     }
 }

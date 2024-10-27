@@ -17,5 +17,7 @@ namespace TesteImpressoras
         string pingar(string ip);
         List<string> printInfoSpool();
         InfoTrabImpressao[] printJobsInfo();
+        void chacaNovosTrab();
+        int checkForNewPrintJobs(List<string> listaImpressoras);
     }
 }

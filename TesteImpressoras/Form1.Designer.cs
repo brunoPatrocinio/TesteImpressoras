@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnGetTotalPag = new System.Windows.Forms.Button();
             this.btnTotalPagMono = new System.Windows.Forms.Button();
             this.txtboxOid = new System.Windows.Forms.TextBox();
@@ -35,6 +36,9 @@
             this.txtBoxIp = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.picBoxStatus = new System.Windows.Forms.PictureBox();
+            this.btnVerificarConexao = new System.Windows.Forms.Button();
             this.btnEnviarEmail = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -56,18 +60,19 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuArquivo = new System.Windows.Forms.ToolStripMenuItem();
             this.configSMTPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnVerificarConexao = new System.Windows.Forms.Button();
-            this.picBoxStatus = new System.Windows.Forms.PictureBox();
-            this.lblStatus = new System.Windows.Forms.Label();
+            this.btnListarFilasImp = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.richTextBoxImp = new System.Windows.Forms.RichTextBox();
+            this.printCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxStatus)).BeginInit();
             this.panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxStatus)).BeginInit();
             this.SuspendLayout();
             // 
             // btnGetTotalPag
             // 
-            this.btnGetTotalPag.Location = new System.Drawing.Point(792, 13);
+            this.btnGetTotalPag.Location = new System.Drawing.Point(1026, 13);
             this.btnGetTotalPag.Name = "btnGetTotalPag";
             this.btnGetTotalPag.Size = new System.Drawing.Size(151, 23);
             this.btnGetTotalPag.TabIndex = 0;
@@ -77,7 +82,7 @@
             // 
             // btnTotalPagMono
             // 
-            this.btnTotalPagMono.Location = new System.Drawing.Point(792, 42);
+            this.btnTotalPagMono.Location = new System.Drawing.Point(1026, 42);
             this.btnTotalPagMono.Name = "btnTotalPagMono";
             this.btnTotalPagMono.Size = new System.Drawing.Size(151, 23);
             this.btnTotalPagMono.TabIndex = 1;
@@ -121,6 +126,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.panel1.Controls.Add(this.btnListarFilasImp);
             this.panel1.Controls.Add(this.lblStatus);
             this.panel1.Controls.Add(this.picBoxStatus);
             this.panel1.Controls.Add(this.btnVerificarConexao);
@@ -133,12 +139,42 @@
             this.panel1.Controls.Add(this.txtBoxIp);
             this.panel1.Location = new System.Drawing.Point(12, 27);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(946, 165);
+            this.panel1.Size = new System.Drawing.Size(1180, 165);
             this.panel1.TabIndex = 6;
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblStatus.Location = new System.Drawing.Point(753, 22);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(231, 32);
+            this.lblStatus.TabIndex = 9;
+            this.lblStatus.Text = "-------------------";
+            // 
+            // picBoxStatus
+            // 
+            this.picBoxStatus.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.picBoxStatus.Location = new System.Drawing.Point(741, 13);
+            this.picBoxStatus.Name = "picBoxStatus";
+            this.picBoxStatus.Size = new System.Drawing.Size(255, 50);
+            this.picBoxStatus.TabIndex = 8;
+            this.picBoxStatus.TabStop = false;
+            // 
+            // btnVerificarConexao
+            // 
+            this.btnVerificarConexao.Location = new System.Drawing.Point(1026, 100);
+            this.btnVerificarConexao.Name = "btnVerificarConexao";
+            this.btnVerificarConexao.Size = new System.Drawing.Size(151, 23);
+            this.btnVerificarConexao.TabIndex = 7;
+            this.btnVerificarConexao.Text = "Verificar Conexão";
+            this.btnVerificarConexao.UseVisualStyleBackColor = true;
+            this.btnVerificarConexao.Click += new System.EventHandler(this.btnVerificarConexao_Click);
             // 
             // btnEnviarEmail
             // 
-            this.btnEnviarEmail.Location = new System.Drawing.Point(792, 71);
+            this.btnEnviarEmail.Location = new System.Drawing.Point(1026, 71);
             this.btnEnviarEmail.Name = "btnEnviarEmail";
             this.btnEnviarEmail.Size = new System.Drawing.Size(151, 23);
             this.btnEnviarEmail.TabIndex = 6;
@@ -167,6 +203,8 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel2.Controls.Add(this.richTextBoxImp);
+            this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.btnSair);
             this.panel2.Controls.Add(this.checkBoxNuloCrip);
             this.panel2.Controls.Add(this.checkBoxDes);
@@ -185,12 +223,12 @@
             this.panel2.Controls.Add(this.label4);
             this.panel2.Location = new System.Drawing.Point(12, 203);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(946, 271);
+            this.panel2.Size = new System.Drawing.Size(1180, 459);
             this.panel2.TabIndex = 8;
             // 
             // btnSair
             // 
-            this.btnSair.Location = new System.Drawing.Point(868, 245);
+            this.btnSair.Location = new System.Drawing.Point(1102, 433);
             this.btnSair.Name = "btnSair";
             this.btnSair.Size = new System.Drawing.Size(75, 23);
             this.btnSair.TabIndex = 23;
@@ -333,7 +371,7 @@
             this.menuArquivo});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(970, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1204, 24);
             this.menuStrip1.TabIndex = 9;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -352,41 +390,44 @@
             this.configSMTPToolStripMenuItem.Text = "Config SMTP";
             this.configSMTPToolStripMenuItem.Click += new System.EventHandler(this.configSMTPToolStripMenuItem_Click);
             // 
-            // btnVerificarConexao
+            // btnListarFilasImp
             // 
-            this.btnVerificarConexao.Location = new System.Drawing.Point(792, 100);
-            this.btnVerificarConexao.Name = "btnVerificarConexao";
-            this.btnVerificarConexao.Size = new System.Drawing.Size(151, 23);
-            this.btnVerificarConexao.TabIndex = 7;
-            this.btnVerificarConexao.Text = "Verificar Conexão";
-            this.btnVerificarConexao.UseVisualStyleBackColor = true;
-            this.btnVerificarConexao.Click += new System.EventHandler(this.btnVerificarConexao_Click);
+            this.btnListarFilasImp.Location = new System.Drawing.Point(1026, 129);
+            this.btnListarFilasImp.Name = "btnListarFilasImp";
+            this.btnListarFilasImp.Size = new System.Drawing.Size(151, 23);
+            this.btnListarFilasImp.TabIndex = 10;
+            this.btnListarFilasImp.Text = "Listar Filas";
+            this.btnListarFilasImp.UseVisualStyleBackColor = true;
+            this.btnListarFilasImp.Click += new System.EventHandler(this.btnListarFilasImp_Click);
             // 
-            // picBoxStatus
+            // label9
             // 
-            this.picBoxStatus.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.picBoxStatus.Location = new System.Drawing.Point(522, 4);
-            this.picBoxStatus.Name = "picBoxStatus";
-            this.picBoxStatus.Size = new System.Drawing.Size(255, 50);
-            this.picBoxStatus.TabIndex = 8;
-            this.picBoxStatus.TabStop = false;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(943, 57);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(153, 41);
+            this.label9.TabIndex = 24;
+            this.label9.Text = "LISTA DE IMPRESSORAS";
             // 
-            // lblStatus
+            // richTextBoxImp
             // 
-            this.lblStatus.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblStatus.Location = new System.Drawing.Point(534, 13);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(231, 32);
-            this.lblStatus.TabIndex = 9;
-            this.lblStatus.Text = "-------------------";
+            this.richTextBoxImp.Location = new System.Drawing.Point(829, 100);
+            this.richTextBoxImp.Name = "richTextBoxImp";
+            this.richTextBoxImp.ReadOnly = true;
+            this.richTextBoxImp.Size = new System.Drawing.Size(348, 140);
+            this.richTextBoxImp.TabIndex = 25;
+            this.richTextBoxImp.Text = "";
+            // 
+            // printCheckTimer
+            // 
+            this.printCheckTimer.Interval = 1000;
+            this.printCheckTimer.Tick += new System.EventHandler(this.printCheckTimer_Tick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(970, 504);
+            this.ClientSize = new System.Drawing.Size(1204, 674);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
@@ -396,11 +437,11 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxStatus)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxStatus)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -439,6 +480,10 @@
         private System.Windows.Forms.Button btnVerificarConexao;
         private System.Windows.Forms.PictureBox picBoxStatus;
         private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Button btnListarFilasImp;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.RichTextBox richTextBoxImp;
+        private System.Windows.Forms.Timer printCheckTimer;
     }
 }
 
