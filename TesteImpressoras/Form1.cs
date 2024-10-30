@@ -226,21 +226,37 @@ namespace TesteImpressoras
             {
                 richTextBoxImp.Text += lstFilas[i] + "\n";
             }
-                       
+
         }
 
         private void printCheckTimer_Tick(object sender, EventArgs e)
         {           
             Impressora impressora = new Impressora();
             List<string> lstFilas = new List<string>();
+
+            List<InfoTrabImpressao> lista1 = new List<InfoTrabImpressao>();
+            List<string> listaImp = new List<string>();
             lstFilas = impressora.printInfoSpool();
             int contador = impressora.checkForNewPrintJobs(lstFilas);
-
+            Conexao conn = new Conexao("localhost", "impressao_db", "root", "milan1");
+         
             while (contador != 0)
             {
                 contadorTotal = contador;
+
+                //aqui vai inserir no db
+                              
+                listaImp = impressora.printInfoSpool();
+                lista1 = impressora.pWorks(listaImp);
+                
                 break;
             }
+            //listaImp = impressora.printInfoSpool();
+            //lista1 = impressora.pWorks(listaImp);
+
+            conn.conectar();
+            conn.salvarTrabImpressao(lista1);
+            conn.desconectar();
             Console.WriteLine("Total Pag: " + contadorTotal);
         }
 

@@ -215,6 +215,7 @@ namespace TesteImpressoras
             {
                 //listaFilas.Add(pq.ToString());
                 listaFilas.Add(pq.Name);
+                
             }
             return listaFilas;
         }
@@ -247,7 +248,6 @@ namespace TesteImpressoras
         public void chacaNovosTrab()
         {
             List<string> listaFilas = new List<string>();
-            Dictionary<string, bool> dictImpress = new Dictionary<string, bool>();
             int qtPag = 0;
             PrintQueue printQueue;
             PrintServer printServer = new PrintServer();
@@ -267,11 +267,11 @@ namespace TesteImpressoras
                        
         }
 
-        public int checkForNewPrintJobs(List<string> listaImpressoras) 
-        {           
+        public int checkForNewPrintJobs(List<string> listaImpressoras)
+        {
             PrintQueue printQueue;
             LocalPrintServer localPrintServer = new LocalPrintServer();
-            
+
             for (int i = 0; i < listaImpressoras.Count; i++)
             {
                 printQueue = localPrintServer.GetPrintQueue(listaImpressoras[i]);
@@ -281,12 +281,54 @@ namespace TesteImpressoras
                 foreach (PrintSystemJobInfo printJob in printJobs)
                 {
                     cont += printJob.NumberOfPagesPrinted;
-                    
+                    //Console.WriteLine("ID: " + printJob.JobIdentifier);
                 }
             }
-                                                   
-            Console.WriteLine("Contador: " +  cont);
+
+            Console.WriteLine("Contador: " + cont);
             return cont;
         }
+
+        public List<InfoTrabImpressao> pWorks(List<string> listaImpressoras)
+        {
+            // Inicializa a lista de trabalhos de impressão
+            List<InfoTrabImpressao> trabs = new List<InfoTrabImpressao>();
+
+            // Inicializa o servidor de impressão local
+            LocalPrintServer localPrintServer = new LocalPrintServer();
+
+            foreach (string impressora in listaImpressoras)
+            {
+                try
+                {
+                    // Obtém a fila de impressão e atualiza suas informações
+                    PrintQueue printQueue = localPrintServer.GetPrintQueue(impressora);
+                    printQueue.Refresh();
+
+                    // Obtém os trabalhos de impressão na fila
+                    var printJobs = printQueue.GetPrintJobInfoCollection();
+
+                    // Adiciona os trabalhos de impressão à lista de retorno
+                    foreach (PrintSystemJobInfo job in printJobs)
+                    {
+                        trabs.Add(new InfoTrabImpressao
+                        {
+                            jobID = job.JobIdentifier,
+                            documentName = job.Name,
+                            submitter = job.Submitter,
+                            status = job.JobStatus.ToString(),
+                            pagesPrinted = job.NumberOfPagesPrinted
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Erro ao acessar a impressora '{impressora}': {ex.Message}");
+                }
+            }
+
+            return trabs;
+        }
+
     }
 }

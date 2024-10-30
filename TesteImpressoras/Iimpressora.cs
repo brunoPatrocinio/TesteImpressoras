@@ -19,5 +19,6 @@ namespace TesteImpressoras
         InfoTrabImpressao[] printJobsInfo();
         void chacaNovosTrab();
         int checkForNewPrintJobs(List<string> listaImpressoras);
+        List<InfoTrabImpressao> pWorks(List<string>listaImpressoras);
     }
 }
